@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÅsaInk - Premium Printing & Branding Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            cyan: '#00D9FF',
+                            magenta: '#FF006E',
+                            yellow: '#FFBE0B',
+                            purple: '#8338EC',
+                            dark: '#0F172A',
+                            light: '#F8FAFC'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #00D9FF 0%, #8338EC 50%, #FF006E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .cmyk-shadow {
+            box-shadow: 5px 5px 0px #00D9FF, 
+                        -5px -5px 0px #FF006E, 
+                        5px -5px 0px #FFBE0B;
+        }
+        .print-texture {
+            background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+        .chat-message {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .ink-splash {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.6;
+            animation: float 8s ease-in-out infinite;
+        }
+        .service-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="font-sans bg-brand-light text-brand-dark overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-2 cursor-pointer" onclick="showSection('home')">
+                    <div class="w-10 h-10 bg-gradient-to-br from-brand-cyan via-brand-purple to-brand-magenta rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                        P
+                    </div>
+                    <span class="font-display font-bold text-2xl tracking-tight">Print<span class="gradient-text">Craft</span></span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <button onclick="showSection('home')" class="nav-link text-gray-700 hover:text-brand-purple font-medium transition-colors">Home</button>
+                    <button onclick="showSection('services')" class="nav-link text-gray-700 hover:text-brand-purple font-medium transition-colors">Services</button>
+                    <button onclick="showSection('shop')" class="nav-link text-gray-700 hover:text-brand-purple font-medium transition-colors">Shop</button>
+                    <button onclick="showSection('portfolio')" class="nav-link text-gray-700 hover:text-brand-purple font-medium transition-colors">Portfolio</button>
+                    <button onclick="showSection('booking')" class="nav-link text-gray-700 hover:text-brand-purple font-medium transition-colors">Book Now</button>
+                    <button onclick="showSection('contact')" class="nav-link text-gray-700 hover:text-brand-purple font-medium transition-colors">Contact</button>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleCart()" class="relative p-2 text-gray-700 hover:text-brand-purple transition-colors">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-brand-magenta text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+                    </button>
+                    <button class="md:hidden p-2 text-gray-700" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <button onclick="showSection('home')" class="block w-full text-left py-2 text-gray-700">Home</button>
+                <button onclick="showSection('services')" class="block w-full text-left py-2 text-gray-700">Services</button>
+                <button onclick="showSection('shop')" class="block w-full text-left py-2 text-gray-700">Shop</button>
+                <button onclick="showSection('portfolio')" class="block w-full text-left py-2 text-gray-700">Portfolio</button>
+                <button onclick="showSection('booking')" class="block w-full text-left py-2 text-gray-700">Book Now</button>
+                <button onclick="showSection('contact')" class="block w-full text-left py-2 text-gray-700">Contact</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-display font-bold">Your Cart</h2>
+                <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="cart-items" class="space-y-4 mb-6">
+                <p class="text-gray-500 text-center py-8">Your cart is empty</p>
+            </div>
+            <div id="cart-footer" class="hidden border-t pt-4">
+                <div class="flex justify-between mb-4 text-lg font-bold">
+                    <span>Total:</span>
+                    <span id="cart-total">$0.00</span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-gradient-to-r from-brand-purple to-brand-magenta text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-shadow">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-display font-bold">Payment</h3>
+                <button onclick="closeCheckout()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                <p class="text-sm text-gray-600 mb-2">Order Total</p>
+                <p class="text-3xl font-bold text-brand-purple" id="checkout-total">$0.00</p>
+            </div>
+
+            <form onsubmit="processPayment(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Card Number</label>
+                    <div class="relative">
+                        <input type="text" placeholder="1234 5678 9012 3456" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-purple focus:border-transparent pl-12" required>
+                        <i class="fas fa-credit-card absolute left-4 top-3.5 text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Expiry</label>
+                        <input type="text" placeholder="MM/YY" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-purple focus:border-transparent" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">CVC</label>
+                        <input type="text" placeholder="123" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-purple focus:border-transparent" required>
+                    </div>
+                </div>
+                
+                <div class="border-t pt-4 mt-4">
+                    <p class="text-sm font-medium mb-3">Or pay with digital wallet</p>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button type="button" class="flex flex-col items-center p-3 border rounded-lg hover:bg-gray-50 transition-colors">
+                            <i class="fab fa-apple text-2xl mb-1"></i>
+                            <span class="text-xs">Apple Pay</span>
+                        </button>
+                        <button type="button" class="flex flex-col items-center p-3 border rounded-lg hover:bg-gray-50 transition-colors">
+                            <i class="fab fa-google-pay text-2xl mb-1"></i>
+                            <span class="text-xs">Google</span>
+                        </button>
+                        <button type="button" class="flex flex-col items-center p-3 border rounded-lg hover:bg-gray-50 transition-colors">
+                            <i class="fab fa-paypal text-2xl mb-1"></i>
+                            <span class="text-xs">PayPal</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-brand-purple to-brand-magenta text-white py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-all mt-6">
+                    Pay Now
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content Sections -->
+    <main class="pt-20">
+        
+        <!-- Home Section -->
+        <section id="home" class="section-content min-h-screen relative overflow-hidden print-texture">
+            <!-- Animated Background Elements -->
+            <div class="ink-splash w-96 h-96 bg-brand-cyan/30 -top-20 -left-20"></div>
+            <div class="ink-splash w-64 h-64 bg-brand-magenta/30 top-40 right-10 animation-delay-2000"></div>
+            <div class="ink-splash w-80 h-80 bg-brand-yellow/20 bottom-0 left-1/3 animation-delay-4000"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8">
+                        <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/80 border border-brand-cyan/30 text-brand-purple font-medium text-sm">
+                            <span class="w-2 h-2 rounded-full bg-brand-magenta animate-pulse"></span>
+                            <span>Premium Quality Guaranteed</span>
+                        </div>
+                        
+                        <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight">
+                            Bring Your Brand to <span class="gradient-text">Life</span>
+                        </h1>
+                        
+                        <p class="text-xl text-gray-600 leading-relaxed max-w-lg">
+                            Professional printing and branding solutions for businesses that demand excellence. From custom apparel to premium stationery.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="showSection('shop')" class="px-8 py-4 bg-gradient-to-r from-brand-purple to-brand-magenta text-white rounded-full font-semibold text-lg hover:shadow-xl hover:scale-105 transition-all flex items-center space-x-2">
+                                <span>Start Order</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <button onclick="showSection('portfolio')" class="px-8 py-4 bg-white text-brand-dark border-2 border-brand-dark rounded-full font-semibold text-lg hover:bg-brand-dark hover:text-white transition-all">
+                                View Portfolio
+                            </button>
+                        </div>
+
+                        <div class="flex items-center space-x-8 pt-8">
+                            <div>
+                                <p class="text-3xl font-bold text-brand-purple">2k+</p>
+                                <p class="text-sm text-gray-600">Happy Clients</p>
+                            </div>
+                            <div class="w-px h-12 bg-gray-300"></div>
+                            <div>
+                                <p class="text-3xl font-bold text-brand-cyan">50k+</p>
+                                <p class="text-sm text-gray-600">Products Printed</p>
+                            </div>
+                            <div class="w-px h-12 bg-gray-300"></div>
+                            <div>
+                                <p class="text-3xl font-bold text-brand-magenta">24h</p>
+                                <p class="text-sm text-gray-600">Fast Delivery</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="relative z-10 grid grid-cols-2 gap-4">
+                            <div class="space-y-4 mt-12">
+                                <div class="bg-white p-4 rounded-2xl shadow-xl cmyk-shadow transform hover:scale-105 transition-transform">
+                                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop" alt="T-shirt" class="w-full h-48 object-cover rounded-lg mb-3">
+                                    <p class="font-semibold">Custom T-Shirts</p>
+                                    <p class="text-sm text-gray-600">From $12.99</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-2xl shadow-xl transform hover:scale-105 transition-transform">
+                                    <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=300&fit=crop" alt="Business Cards" class="w-full h-36 object-cover rounded-lg mb-3">
+                                    <p class="font-semibold">Business Cards</p>
+                                    <p class="text-sm text-gray-600">From $19.99</p>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-2xl shadow-xl transform hover:scale-105 transition-transform">
+                                    <img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=300&fit=crop" alt="Mug" class="w-full h-36 object-cover rounded-lg mb-3">
+                                    <p class="font-semibold">Branded Mugs</p>
+                                    <p class="text-sm text-gray-600">From $8.99</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-2xl shadow-xl cmyk-shadow transform hover:scale-105 transition-transform">
+                                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop" alt="Flyers" class="w-full h-48 object-cover rounded-lg mb-3">
+                                    <p class="font-semibold">Marketing Flyers</p>
+                                    <p class="text-sm text-gray-600">From $29.99</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section-content hidden bg-white py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">Our <span class="gradient-text">Services</span></h2>
+                    <p class="text-gray-600 text-lg max-w-2xl mx-auto">Comprehensive printing solutions tailored to elevate your brand presence across all touchpoints.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- T-shirts -->
+                    <div class="service-card rounded-2xl p-6 border border-gray-200 card-hover group cursor-pointer" onclick="showSection('shop')">
+                        <div class="w-14 h-14 bg-gradient-to-br from-brand-cyan to-blue-500 rounded-xl flex items-center justify-center text-white text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold mb-2">T-Shirt Branding</h3>
+                        <p class="text-gray-600 text-sm mb-4">Premium DTG and screen printing on quality cotton and polyester blends.</p>
+                        <div class="flex items-center text-brand-purple font-semibold text-sm">
+                            <span>Order Now</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Mugs -->
+                    <div class="service-card rounded-2xl p-6 border border-gray-200 card-hover group cursor-pointer" onclick="showSection('shop')">
+                        <div class="w-14 h-14 bg-gradient-to-br from-brand-magenta to-pink-500 rounded-xl flex items-center justify-center text-white text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-coffee"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold mb-2">Mug Branding</h3>
+                        <p class="text-gray-600 text-sm mb-4">Durable sublimation printing on ceramic and stainless steel mugs.</p>
+                        <div class="flex items-center text-brand-purple font-semibold text-sm">
+                            <span>Order Now</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Caps -->
+                    <div class="service-card rounded-2xl p-6 border border-gray-200 card-hover group cursor-pointer" onclick="showSection('shop')">
+                        <div class="w-14 h-14 bg-gradient-to-br from-brand-yellow to-orange-500 rounded-xl flex items-center justify-center text-white text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-hat-cowboy"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold mb-2">Cap Branding</h3>
+                        <p class="text-gray-600 text-sm mb-4">Embroidery and heat transfer on baseball caps and snapbacks.</p>
+                        <div class="flex items-center text-brand-purple font-semibold text-sm">
+                            <span>Order Now</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Business Cards -->
+                    <div class="service-card rounded-2xl p-6 border border-gray-200 card-hover group cursor-pointer" onclick="showSection('shop')">
+                        <div class="w-14 h-14 bg-gradient-to-br from-brand-purple to-indigo-500 rounded-xl flex items-center justify-center text-white text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold mb-2">Business Cards</h3>
+                        <p class="text-gray-600 text-sm mb-4">Luxury finishes including spot UV, foil stamping, and rounded corners.</p>
+                        <div class="flex items-center text-brand-purple font-semibold text-sm">
+                            <span>Order Now</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Flyers -->
+                    <div class="service-card rounded-2xl p-6 border border-gray-200 card-hover group cursor-pointer" onclick="showSection('shop')">
+                        <div class="w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center text-white text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold mb-2">Flyers & Leaflets</h3>
+                        <p class="text-gray-600 text-sm mb-4">Single to multi-fold options on various paper stocks.</p>
+                        <div class="flex items-center text-brand-purple font-semibold text-sm">
+                            <span>Order Now</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Posters -->
+                    <div class="service-card rounded-2xl p-6 border border-gray-200 card-hover group cursor-pointer" onclick="showSection('shop')">
+                        <div class="w-14 h-14 bg-gradient-to-br from-red-400 to-rose-600 rounded-xl flex items-center justify-center text-white text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold mb-2">Posters</h3>
+                        <p class="text-gray-600 text-sm mb-4">Large format printing up to A0 with lamination options.</p>
+                        <div class="flex items-center text-brand-purple font-semibold text-sm">
+                            <span>Order Now</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Booklets -->
+                    <div class="service-card rounded-2xl p-6 border border-gray-200 card-hover group cursor-pointer" onclick="showSection('shop')">
+                        <div class="w-14 h-14 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-xl flex items-center justify-center text-white text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold mb-2">Booklets</h3>
+                        <p class="text-gray-600 text-sm mb-4">Saddle-stitched and perfect bound catalogues and brochures.</p>
+                        <div class="flex items-center text-brand-purple font-semibold text-sm">
+                            <span>Order Now</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Exercise Books -->
+                    <div class="service-card rounded-2xl p-6 border border-gray-200 card-hover group cursor-pointer" onclick="showSection('shop')">
+                        <div class="w-14 h-14 bg-gradient-to-br from-teal-400 to-cyan-600 rounded-xl flex items-center justify-center text-white text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold mb-2">Exercise Books</h3>
+                        <p class="text-gray-600 text-sm mb-4">Custom school and corporate notebooks with branded covers.</p>
+                        <div class="flex items-center text-brand-purple font-semibold text-sm">
+                            <span>Order Now</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shop Section -->
+        <section id="shop" class="section-content hidden bg-gray-50 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">Print <span class="gradient-text">Shop</span></h2>
+                    <p class="text-gray-600">Customize and order your printed products</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                    <!-- T-Shirt Product -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=400&fit=crop" alt="T-Shirt" class="w-full h-64 object-cover">
+                            <div class="absolute top-4 right-4 bg-brand-magenta text-white px-3 py-1 rounded-full text-sm font-bold">Bestseller</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-display text-2xl font-bold mb-2">Custom T-Shirts</h3>
+                            <p class="text-gray-600 mb-4">Starting from <span class="text-brand-purple font-bold text-xl">$12.99</span></p>
+                            <button onclick="openCustomizer('tshirt')" class="w-full py-3 bg-brand-dark text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                                Customize & Order
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mug Product -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
+                        <img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&h=400&fit=crop" alt="Mug" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-display text-2xl font-bold mb-2">Branded Mugs</h3>
+                            <p class="text-gray-600 mb-4">Starting from <span class="text-brand-purple font-bold text-xl">$8.99</span></p>
+                            <button onclick="openCustomizer('mug')" class="w-full py-3 bg-brand-dark text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                                Customize & Order
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Cap Product -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
+                        <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&h=400&fit=crop" alt="Cap" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-display text-2xl font-bold mb-2">Custom Caps</h3>
+                            <p class="text-gray-600 mb-4">Starting from <span class="text-brand-purple font-bold text-xl">$14.99</span></p>
+                            <button onclick="openCustomizer('cap')" class="w-full py-3 bg-brand-dark text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                                Customize & Order
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Flyers Product -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop" alt="Flyers" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-display text-2xl font-bold mb-2">Marketing Flyers</h3>
+                            <p class="text-gray-600 mb-4">Starting from <span class="text-brand-purple font-bold text-xl">$29.99</span> per 100</p>
+                            <button onclick="openCustomizer('flyers')" class="w-full py-3 bg-brand-dark text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                                Customize & Order
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Posters Product -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
+                        <img src="https://images.unsplash.com/photo-1561839561-b13bcfe95249?w=600&h=400&fit=crop" alt="Posters" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-display text-2xl font-bold mb-2">Posters</h3>
+                            <p class="text-gray-600 mb-4">Starting from <span class="text-brand-purple font-bold text-xl">$19.99</span></p>
+                            <button onclick="openCustomizer('posters')" class="w-full py-3 bg-brand-dark text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                                Customize & Order
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Business Cards Product -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&h=400&fit=crop" alt="Business Cards" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-display text-2xl font-bold mb-2">Business Cards</h3>
+                            <p class="text-gray-600 mb-4">Starting from <span class="text-brand-purple font-bold text-xl">$19.99</span> per 100</p>
+                            <button onclick="openCustomizer('businesscards')" class="w-full py-3 bg-brand-dark text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                                Customize & Order
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Booklets Product -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
+                        <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=600&h=400&fit=crop" alt="Booklets" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-display text-2xl font-bold mb-2">Booklets</h3>
+                            <p class="text-gray-600 mb-4">Starting from <span class="text-brand-purple font-bold text-xl">$49.99</span></p>
+                            <button onclick="openCustomizer('booklets')" class="w-full py-3 bg-brand-dark text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                                Customize & Order
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise Books Product -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
+                        <img src="https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=600&h=400&fit=crop" alt="Exercise Books" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-display text-2xl font-bold mb-2">Exercise Books</h3>
+                            <p class="text-gray-600 mb-4">Starting from <span class="text-brand-purple font-bold text-xl">$5.99</span> each</p>
+                            <button onclick="openCustomizer('exercisebooks')" class="w-full py-3 bg-brand-dark text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                                Customize & Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Customizer Modal -->
+        <div id="customizer-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 overflow-y-auto">
+            <div class="min-h-screen px-4 py-8 flex items-center justify-center">
+                <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
+                    <button onclick="closeCustomizer()" class="absolute top-4 right-4 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors z-10">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 p-8">
+                        <!-- Product Preview -->
+                        <div class="space-y-4">
+                            <div class="aspect-square bg-gray-100 rounded-2xl overflow-hidden relative">
+                                <img id="customizer-image" src="" alt="Product" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-6">
+                                    <div class="text-white">
+                                        <h3 id="preview-title" class="text-2xl font-bold mb-1"></h3>
+                                        <p id="preview-price" class="text-3xl font-bold text-brand-cyan"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <div class="w-16 h-16 rounded-lg bg-gray-200 border-2 border-brand-purple cursor-pointer overflow-hidden">
+                                    <img id="thumb-1" src="" class="w-full h-full object-cover">
+                                </div>
+                                <div class="w-16 h-16 rounded-lg bg-gray-200 cursor-pointer overflow-hidden opacity-60">
+                                    <img id="thumb-2" src="" class="w-full h-full object-cover">
+                                </div>
+                                <div class="w-16 h-16 rounded-lg bg-gray-200 cursor-pointer overflow-hidden opacity-60">
+                                    <img id="thumb-3" src="" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Customization Options -->
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-2xl font-display font-bold mb-2" id="customizer-product-name"></h3>
+                                <p class="text-gray-600">Configure your product specifications below.</p>
+                            </div>
+
+                            <!-- Material Type -->
+                            <div>
+                                <label class="block text-sm font-semibold mb-3">Material Type</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button onclick="selectMaterial('glossy')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors" data-material="glossy">
+                                        <div class="font-semibold">Glossy</div>
+                                        <div class="text-sm text-gray-600">Vibrant colors</div>
+                                    </button>
+                                    <button onclick="selectMaterial('matt')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors" data-material="matt">
+                                        <div class="font-semibold">Matt</div>
+                                        <div class="text-sm text-gray-600">Non-reflective</div>
+                                    </button>
+                                    <button onclick="selectMaterial('writable')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors" data-material="writable">
+                                        <div class="font-semibold">Writable</div>
+                                        <div class="text-sm text-gray-600">Writeable surface</div>
+                                    </button>
+                                    <button onclick="selectMaterial('seed')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors" data-material="seed">
+                                        <div class="font-semibold">Seed Paper</div>
+                                        <div class="text-sm text-gray-600">Plantable eco</div>
+                                    </button>
+                                    <button onclick="selectMaterial('recycled')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors col-span-2" data-material="recycled">
+                                        <div class="font-semibold">Recycled Natural White</div>
+                                        <div class="text-sm text-gray-600">100% post-consumer waste</div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Paper Weight -->
+                            <div>
+                                <label class="block text-sm font-semibold mb-3">Paper Weight / Quality</label>
+                                <div class="space-y-2">
+                                    <button onclick="selectWeight('90', 0)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="90">
+                                        <div class="flex items-center">
+                                            <div class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 weight-indicator"></div>
+                                            <div class="text-left">
+                                                <div class="font-semibold">Super Budget</div>
+                                                <div class="text-sm text-gray-600">90 gsm</div>
+                                            </div>
+                                        </div>
+                                        <span class="text-green-600 font-semibold">Base price</span>
+                                    </button>
+                                    
+                                    <button onclick="selectWeight('135', 5)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="135">
+                                        <div class="flex items-center">
+                                            <div class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 weight-indicator"></div>
+                                            <div class="text-left">
+                                                <div class="font-semibold">Budget</div>
+                                                <div class="text-sm text-gray-600">135 gsm</div>
+                                            </div>
+                                        </div>
+                                        <span class="text-brand-purple font-semibold">+$5.00</span>
+                                    </button>
+                                    
+                                    <button onclick="selectWeight('170', 12)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="170">
+                                        <div class="flex items-center">
+                                            <div class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 weight-indicator"></div>
+                                            <div class="text-left">
+                                                <div class="font-semibold">Standard</div>
+                                                <div class="text-sm text-gray-600">170 gsm</div>
+                                            </div>
+                                        </div>
+                                        <span class="text-brand-purple font-semibold">+$12.00</span>
+                                    </button>
+                                    
+                                    <button onclick="selectWeight('250', 25)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="250">
+                                        <div class="flex items-center">
+                                            <div class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 weight-indicator"></div>
+                                            <div class="text-left">
+                                                <div class="font-semibold">Premium</div>
+                                                <div class="text-sm text-gray-600">250 gsm</div>
+                                            </div>
+                                        </div>
+                                        <span class="text-brand-purple font-semibold">+$25.00</span>
+                                    </button>
+                                    
+                                    <button onclick="selectWeight('400', 45)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="400">
+                                        <div class="flex items-center">
+                                            <div class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 weight-indicator"></div>
+                                            <div class="text-left">
+                                                <div class="font-semibold">Premium Plus</div>
+                                                <div class="text-sm text-gray-600">400 gsm</div>
+                                            </div>
+                                        </div>
+                                        <span class="text-brand-purple font-semibold">+$45.00</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Quantity -->
+                            <div>
+                                <label class="block text-sm font-semibold mb-3">Quantity</label>
+                                <div class="flex items-center space-x-4">
+                                    <button onclick="updateQuantity(-1)" class="w-10 h-10 rounded-lg border-2 border-gray-200 flex items-center justify-center hover:border-brand-purple transition-colors">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" id="quantity-input" value="1" min="1" class="w-20 text-center text-xl font-bold border-2 border-gray-200 rounded-lg py-2" onchange="calculatePrice()">
+                                    <button onclick="updateQuantity(1)" class="w-10 h-10 rounded-lg border-2 border-gray-200 flex items-center justify-center hover:border-brand-purple transition-colors">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Upload Design -->
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-brand-purple transition-colors cursor-pointer">
+                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
+                                <p class="text-gray-600">Drop your design here or click to upload</p>
+                                <p class="text-sm text-gray-500 mt-1">PDF, AI, PSD up to 50MB</p>
+                            </div>
+
+                            <!-- Total and Add to Cart -->
+                            <div class="border-t pt-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="text-lg font-semibold">Total Price:</span>
+                                    <span id="total-price" class="text-3xl font-bold text-brand-purple">$0.00</span>
+                                </div>
+                                <button onclick="addToCart()" class="w-full py-4 bg-gradient-to-r from-brand-purple to-brand-magenta text-white rounded-lg font-bold text-lg hover:shadow-xl transition-all flex items-center justify-center space-x-2">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span>Add to Cart</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="section-content hidden bg-white py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">Our <span class="gradient-text">Portfolio</span></h2>
+                    <p class="text-gray-600 text-lg">See the quality of our work across different product categories</p>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <button onclick="filterPortfolio('all')" class="portfolio-filter px-6 py-2 rounded-full bg-brand-dark text-white font-medium transition-all" data-filter="all">All</button>
+                    <button onclick="filterPortfolio('apparel')" class="portfolio-filter px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition-all" data-filter="apparel">Apparel</button>
+                    <button onclick="filterPortfolio('paper')" class="portfolio-filter px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition-all" data-filter="paper">Paper Products</button>
+                    <button onclick="filterPortfolio('promo')" class="portfolio-filter px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition-all" data-filter="promo">Promotional</button>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+                    <div class="portfolio-item apparel group relative overflow-hidden rounded-2xl cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop" alt="T-Shirt Print" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <div class="text-white">
+                                <h4 class="font-bold text-xl">Corporate T-Shirts</h4>
+                                <p class="text-sm text-gray-300">Tech Startup Branding</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item promo group relative overflow-hidden rounded-2xl cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&h=600&fit=crop" alt="Mug Branding" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <div class="text-white">
+                                <h4 class="font-bold text-xl">Coffee Mug Set</h4>
+                                <p class="text-sm text-gray-300">Cafe Merchandise</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item apparel group relative overflow-hidden rounded-2xl cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&h=600&fit=crop" alt="Cap Branding" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <div class="text-white">
+                                <h4 class="font-bold text-xl">Embroidered Caps</h4>
+                                <p class="text-sm text-gray-300">Sports Team Gear</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item paper group relative overflow-hidden rounded-2xl cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=600&fit=crop" alt="Flyers" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <div class="text-white">
+                                <h4 class="font-bold text-xl">Event Flyers</h4>
+                                <p class="text-sm text-gray-300">Music Festival Promotion</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item paper group relative overflow-hidden rounded-2xl cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&h=600&fit=crop" alt="Business Cards" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <div class="text-white">
+                                <h4 class="font-bold text-xl">Luxury Business Cards</h4>
+                                <p class="text-sm text-gray-300">Spot UV Finish</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item paper group relative overflow-hidden rounded-2xl cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1561839561-b13bcfe95249?w=600&h=600&fit=crop" alt="Posters" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <div class="text-white">
+                                <h4 class="font-bold text-xl">Movie Posters</h4>
+                                <p class="text-sm text-gray-300">Large Format Printing</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item paper group relative overflow-hidden rounded-2xl cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=600&h=600&fit=crop" alt="Booklets" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <div class="text-white">
+                                <h4 class="font-bold text-xl">Annual Report</h4>
+                                <p class="text-sm text-gray-300">Perfect Bound Booklet</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item paper group relative overflow-hidden rounded-2xl cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=600&h=600&fit=crop" alt="Exercise Books" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <div class="text-white">
+                                <h4 class="font-bold text-xl">Corporate Notebooks</h4>
+                                <p class="text-sm text-gray-300">Custom Stationery</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item promo group relative overflow-hidden rounded-2xl cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?w=600&h=600&fit=crop" alt="Branded Merchandise" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <div class="text-white">
+                                <h4 class="font-bold text-xl">Full Brand Package</h4>
+                                <p class="text-sm text-gray-300">Complete Identity Kit</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox Modal -->
+        <div id="lightbox" class="fixed inset-0 bg-black/95 hidden z-50 flex items-center justify-center p-4" onclick="closeLightbox()">
+            <button class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300">&times;</button>
+            <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg">
+        </div>
+
+        <!-- Booking Section -->
+        <section id="booking" class="section-content hidden bg-gradient-to-br from-brand-dark to-gray-900 py-20 text-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">Book a <span class="gradient-text">Consultation</span></h2>
+                    <p class="text-gray-400 text-lg">Schedule a meeting with our design experts to discuss your project</p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+                    <form onsubmit="bookAppointment(event)" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Full Name</label>
+                                <input type="text" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-brand-cyan focus:border-transparent text-white placeholder-gray-400" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Email Address</label>
+                                <input type="email" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-brand-cyan focus:border-transparent text-white placeholder-gray-400" placeholder="john@example.com">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Phone Number</label>
+                                <input type="tel" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-brand-cyan focus:border-transparent text-white placeholder-gray-400" placeholder="+1 (555) 123-4567">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Company (Optional)</label>
+                                <input type="text" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-brand-cyan focus:border-transparent text-white placeholder-gray-400" placeholder="Your Company">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Service Interested In</label>
+                            <select class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-brand-cyan focus:border-transparent text-white">
+                                <option value="" class="text-gray-900">Select a service...</option>
+                                <option value="tshirt" class="text-gray-900">T-Shirt Branding</option>
+                                <option value="mug" class="text-gray-900">Mug Branding</option>
+                                <option value="cap" class="text-gray-900">Cap Branding</option>
+                                <option value="flyers" class="text-gray-900">Flyers & Posters</option>
+                                <option value="stationery" class="text-gray-900">Business Cards & Stationery</option>
+                                <option value="booklets" class="text-gray-900">Booklets & Catalogues</option>
+                                <option value="other" class="text-gray-900">Other / Multiple Services</option>
+                            </select>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Preferred Date</label>
+                                <input type="date" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-brand-cyan focus:border-transparent text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Preferred Time</label>
+                                <select class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-brand-cyan focus:border-transparent text-white">
+                                    <option value="" class="text-gray-900">Select time...</option>
+                                    <option value="9:00" class="text-gray-900">9:00 AM</option>
+                                    <option value="10:00" class="text-gray-900">10:00 AM</option>
+                                    <option value="11:00" class="text-gray-900">11:00 AM</option>
+                                    <option value="13:00" class="text-gray-900">1:00 PM</option>
+                                    <option value="14:00" class="text-gray-900">2:00 PM</option>
+                                    <option value="15:00" class="text-gray-900">3:00 PM</option>
+                                    <option value="16:00" class="text-gray-900">4:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Project Details</label>
+                            <textarea rows="4" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-brand-cyan focus:border-transparent text-white placeholder-gray-400" placeholder="Tell us about your project requirements..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-gradient-to-r from-brand-cyan to-brand-purple text-white rounded-lg font-bold text-lg hover:shadow-xl transition-all transform hover:scale-[1.02]">
+                            Schedule Consultation
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section-content hidden bg-gray-50 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">Get in <span class="gradient-text">Touch</span></h2>
+                    <p class="text-gray-600 text-lg">We're here to help with all your printing needs</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <!-- Contact Info -->
+                    <div class="space-y-8">
+                        <div class="bg-white rounded-2xl p-8 shadow-lg">
+                            <h3 class="font-display text-2xl font-bold mb-6">Contact Information</h3>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 bg-brand-cyan/10 rounded-lg flex items-center justify-center text-brand-cyan text-xl flex-shrink-0">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Phone</h4>
+                                        <a href="tel:+46736944650" class="text-gray-600 hover:text-brand-purple transition-colors">+1 (555) 123-4567</a>
+                                        <p class="text-sm text-gray-500 mt-1">Mon-Fri 8am-6pm</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 bg-brand-magenta/10 rounded-lg flex items-center justify-center text-brand-magenta text-xl flex-shrink-0">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Email</h4>
+                                        <a href="info@asaink.com" class="text-gray-600 hover:text-brand-purple transition-colors">hello@printcraft.com</a>
+                                        <p class="text-sm text-gray-500 mt-1">24/7 Support</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 bg-brand-yellow/10 rounded-lg flex items-center justify-center text-brand-yellow text-xl flex-shrink-0">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">WhatsApp</h4>
+                                        <a href="https://wa.me/46736944650" class="text-gray-600 hover:text-brand-purple transition-colors">+1 (555) 123-4567</a>
+                                        <p class="text-sm text-gray-500 mt-1">Quick Response</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 bg-brand-purple/10 rounded-lg flex items-center justify-center text-brand-purple text-xl flex-shrink-0">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Address</h4>
+                                        <p class="text-gray-600">Rimbo Norrtalje , Design District<br>Stockholm,  76241</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 pt-8 border-t">
+                                <h4 class="font-semibold mb-4">Business Hours</h4>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Monday - Friday</span>
+                                        <span class="font-semibold">8:00 AM - 6:00 PM</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Saturday</span>
+                                        <span class="font-semibold">9:00 AM - 4:00 PM</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Sunday</span>
+                                        <span class="font-semibold text-red-500">Closed</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <a href="tel:+15551234567" class="bg-brand-dark text-white p-4 rounded-xl flex flex-col items-center justify-center hover:bg-gray-800 transition-colors">
+                                <i class="fas fa-phone-alt text-2xl mb-2"></i>
+                                <span class="font-semibold">Call Now</span>
+                            </a>
+                            <a href="https://wa.me/15551234567" class="bg-green-500 text-white p-4 rounded-xl flex flex-col items-center justify-center hover:bg-green-600 transition-colors">
+                                <i class="fab fa-whatsapp text-2xl mb-2"></i>
+                                <span class="font-semibold">WhatsApp</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Map -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg h-full min-h-[400px] relative">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1422937950147!2d-73.98731968482413!3d40.75889497932681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0; position: absolute; top: 0; left: 0;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Action Buttons -->
+    <div class="fixed bottom-6 right-6 flex flex-col space-y-3 z-40">
+        <!-- Live Chat Button -->
+        <button onclick="toggleChat()" class="w-14 h-14 bg-brand-purple text-white rounded-full shadow-lg hover:shadow-xl transition-all flex items-center justify-center text-2xl hover:scale-110 group relative">
+            <i class="fas fa-comments"></i>
+            <span class="absolute right-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Live Chat</span>
+        </button>
+        
+        <!-- Call Button -->
+        <a href="tel:+15551234567" class="w-14 h-14 bg-green-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all flex items-center justify-center text-2xl hover:scale-110 group relative">
+            <i class="fas fa-phone"></i>
+            <span class="absolute right-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Call Us</span>
+        </a>
+    </div>
+
+    <!-- Chat Widget -->
+    <div id="chat-widget" class="fixed bottom-24 right-6 w-96 bg-white rounded-2xl shadow-2xl hidden z-40 overflow-hidden border border-gray-200">
+        <div class="bg-gradient-to-r from-brand-purple to-brand-magenta p-4 text-white flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold">ÅsaInk Assistant</h4>
+                    <p class="text-xs text-white/80">AI Powered • Online</p>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="text-white/80 hover:text-white">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div id="chat-messages" class="h-96 overflow-y-auto p-4 space-y-4 bg-gray-50">
+            <div class="chat-message flex items-start space-x-2">
+                <div class="w-8 h-8 bg-brand-purple rounded-full flex items-center justify-center text-white text-xs flex-shrink-0">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[80%]">
+                    <p class="text-sm">Hello! I'm your AI assistant. How can I help you with your printing needs today?</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="p-4 bg-white border-t">
+            <div class="flex space-x-2">
+                <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 px-4 py-2 border border-gray-200 rounded-full focus:ring-2 focus:ring-brand-purple focus:border-transparent text-sm" onkeypress="handleChatKeypress(event)">
+                <button onclick="sendMessage()" class="w-10 h-10 bg-brand-purple text-white rounded-full flex items-center justify-center hover:bg-brand-dark transition-colors">
+                    <i class="fas fa-paper-plane text-sm"></i>
+                </button>
+            </div>
+            <div class="flex justify-center space-x-2 mt-2">
+                <button onclick="quickReply('pricing')" class="text-xs bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full transition-colors">Pricing</button>
+                <button onclick="quickReply('turnaround')" class="text-xs bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full transition-colors">Turnaround</button>
+                <button onclick="quickReply('shipping')" class="text-xs bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full transition-colors">Shipping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-br from-brand-cyan via-brand-purple to-brand-magenta rounded flex items-center justify-center text-white font-bold">P</div>
+                        <span class="font-display font-bold text-xl">ÅsaInk</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">Premium printing and branding solutions for businesses that demand excellence.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Services</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><button onclick="showSection('shop')" class="hover:text-white transition-colors">T-Shirt Printing</button></li>
+                        <li><button onclick="showSection('shop')" class="hover:text-white transition-colors">Mug Branding</button></li>
+                        <li><button onclick="showSection('shop')" class="hover:text-white transition-colors">Business Cards</button></li>
+                        <li><button onclick="showSection('shop')" class="hover:text-white transition-colors">Large Format</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><button onclick="showSection('portfolio')" class="hover:text-white transition-colors">Portfolio</button></li>
+                        <li><button onclick="showSection('booking')" class="hover:text-white transition-colors">Book Consultation</button></li>
+                        <li><button onclick="showSection('contact')" class="hover:text-white transition-colors">Contact Us</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-purple transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-purple transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-purple transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+                <p>&copy; 2024 ÅsaInk. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global State
+        let cart = [];
+        let currentProduct = null;
+        let currentPrice = 0;
+        let selectedMaterial = null;
+        let selectedWeight = null;
+        let weightPriceAdd = 0;
+
+        // Product Data
+        const products = {
+            tshirt: { name: 'Custom T-Shirts', basePrice: 12.99, image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop' },
+            mug: { name: 'Branded Mugs', basePrice: 8.99, image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&h=600&fit=crop' },
+            cap: { name: 'Custom Caps', basePrice: 14.99, image: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&h=600&fit=crop' },
+            flyers: { name: 'Marketing Flyers (100pcs)', basePrice: 29.99, image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=600&fit=crop' },
+            posters: { name: 'Posters', basePrice: 19.99, image: 'https://images.unsplash.com/photo-1561839561-b13bcfe95249?w=600&h=600&fit=crop' },
+            businesscards: { name: 'Business Cards (100pcs)', basePrice: 19.99, image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&h=600&fit=crop' },
+            booklets: { name: 'Booklets', basePrice: 49.99, image: 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=600&h=600&fit=crop' },
+            exercisebooks: { name: 'Exercise Books', basePrice: 5.99, image: 'https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=600&h=600&fit=crop' }
+        };
+
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.remove('hidden');
+            
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Update nav active state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('text-brand-purple');
+                link.classList.add('text-gray-700');
+            });
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // Customizer Functions
+        function openCustomizer(productKey) {
+            currentProduct = productKey;
+            const product = products[productKey];
+            
+            document.getElementById('customizer-product-name').textContent = product.name;
+            document.getElementById('customizer-image').src = product.image;
+            document.getElementById('preview-title').textContent = product.name;
+            document.getElementById('thumb-1').src = product.image;
+            document.getElementById('thumb-2').src = product.image;
+            document.getElementById('thumb-3').src = product.image;
+            
+            // Reset selections
+            selectedMaterial = null;
+            selectedWeight = null;
+            weightPriceAdd = 0;
+            document.getElementById('quantity-input').value = 1;
+            
+            // Reset UI
+            document.querySelectorAll('.material-btn').forEach(btn => {
+                btn.classList.remove('border-brand-purple', 'bg-brand-purple/5');
+                btn.classList.add('border-gray-200');
+            });
+            document.querySelectorAll('.weight-btn').forEach(btn => {
+                btn.classList.remove('border-brand-purple', 'bg-brand-purple/5');
+                btn.classList.add('border-gray-200');
+                btn.querySelector('.weight-indicator').classList.remove('bg-brand-purple', 'border-brand-purple');
+            });
+            
+            calculatePrice();
+            document.getElementById('customizer-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCustomizer() {
+            document.getElementById('customizer-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function selectMaterial(material) {
+            selectedMaterial = material;
+            document.querySelectorAll('.material-btn').forEach(btn => {
+                if(btn.dataset.material === material) {
+                    btn.classList.remove('border-gray-200');
+                    btn.classList.add('border-brand-purple', 'bg-brand-purple/5');
+                } else {
+                    btn.classList.remove('border-brand-purple', 'bg-brand-purple/5');
+                    btn.classList.add('border-gray-200');
+                }
+            });
+        }
+
+        function selectWeight(weight, addPrice) {
+            selectedWeight = weight;
+            weightPriceAdd = addPrice;
+            document.querySelectorAll('.weight-btn').forEach(btn => {
+                if(btn.dataset.weight === weight) {
+                    btn.classList.remove('border-gray-200');
+                    btn.classList.add('border-brand-purple', 'bg-brand-purple/5');
+                    btn.querySelector('.weight-indicator').classList.add('bg-brand-purple', 'border-brand-purple');
+                } else {
+                    btn.classList.remove('border-brand-purple', 'bg-brand-purple/5');
+                    btn.classList.add('border-gray-200');
+                    btn.querySelector('.weight-indicator').classList.remove('bg-brand-purple', 'border-brand-purple');
+                }
+            });
+            calculatePrice();
+        }
+
+        function updateQuantity(change) {
+            const input = document.getElementById('quantity-input');
+            let value = parseInt(input.value) + change;
+            if(value < 1) value = 1;
+            input.value = value;
+            calculatePrice();
+        }
+
+        function calculatePrice() {
+            if(!currentProduct) return;
+            
+            const quantity = parseInt(document.getElementById('quantity-input').value) || 1;
+            const basePrice = products[currentProduct].basePrice;
+            const total = (basePrice + weightPriceAdd) * quantity;
+            
+            currentPrice = total;
+            document.getElementById('total-price').textContent = '$' + total.toFixed(2);
+            document.getElementById('preview-price').textContent = '$' + total.toFixed(2);
+        }
+
+        function addToCart() {
+            if(!selectedMaterial || !selectedWeight) {
+                alert('Please select both material type and paper weight');
+                return;
+            }
+            
+            const quantity = parseInt(document.getElementById('quantity-input').value);
+            const item = {
+                id: Date.now(),
+                product: currentProduct,
+                name: products[currentProduct].name,
+                material: selectedMaterial,
+                weight: selectedWeight,
+                quantity: quantity,
+                price: currentPrice,
+                image: products[currentProduct].image
+            };
+            
+            cart.push(item);
+            updateCartUI();
+            closeCustomizer();
+            
+            // Show success animation
+            const btn = document.querySelector('[onclick="toggleCart()"]');
+            btn.classList.add('animate-bounce');
+            setTimeout(() => btn.classList.remove('animate-bounce'), 1000);
+        }
+
+        // Cart Functions
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            sidebar.classList.toggle('translate-x-full');
+        }
+
+        function updateCartUI() {
+            const count = cart.length;
+            const countBadge = document.getElementById('cart-count');
+            
+            if(count > 0) {
+                countBadge.textContent = count;
+                countBadge.classList.remove('hidden');
+            } else {
+                countBadge.classList.add('hidden');
+            }
+            
+            const itemsContainer = document.getElementById('cart-items');
+            const footer = document.getElementById('cart-footer');
+            
+            if(count === 0) {
+                itemsContainer.innerHTML = '<p class="text-gray-500 text-center py-8">Your cart is empty</p>';
+                footer.classList.add('hidden');
+            } else {
+                let html = '';
+                let total = 0;
+                
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    html += `
+                        <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-lg">
+                            <img src="${item.image}" alt="" class="w-16 h-16 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-sm">${item.name}</h4>
+                                <p class="text-xs text-gray-600">${item.material} • ${item.weight}gsm</p>
+                                <p class="text-xs text-gray-600">Qty: ${item.quantity}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-brand-purple">$${item.price.toFixed(2)}</p>
+                                <button onclick="removeFromCart(${index})" class="text-xs text-red-500 hover:text-red-700 mt-1">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                itemsContainer.innerHTML = html;
+                document.getElementById('cart-total').textContent = '$' + total.toFixed(2);
+                footer.classList.remove('hidden');
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function checkout() {
+            if(cart.length === 0) return;
+            
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('checkout-total').textContent = '$' + total.toFixed(2);
+            document.getElementById('checkout-modal').classList.remove('hidden');
+            toggleCart();
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function processPayment(e) {
+            e.preventDefault();
+            
+            // Simulate processing
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Payment successful! Thank you for your order.');
+                cart = [];
+                updateCartUI();
+                closeCheckout();
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, 2000);
+        }
+
+        // Portfolio Functions
+        function filterPortfolio(category) {
+            // Update buttons
+            document.querySelectorAll('.portfolio-filter').forEach(btn => {
+                if(btn.dataset.filter === category) {
+                    btn.classList.remove('bg-gray-200', 'text-gray-700');
+                    btn.classList.add('bg-brand-dark', 'text-white');
+                } else {
+                    btn.classList.add('bg-gray-200', 'text-gray-700');
+                    btn.classList.remove('bg-brand-dark', 'text-white');
+                }
+            });
+            
+            // Filter items
+            document.querySelectorAll('.portfolio-item').forEach(item => {
+                if(category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                    setTimeout(() => item.style.opacity = '1', 10);
+                } else {
+                    item.style.opacity = '0';
+                    setTimeout(() => item.style.display = 'none', 300);
+                }
+            });
+        }
+
+        function openLightbox(element) {
+            const img = element.querySelector('img');
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        // Booking Function
+        function bookAppointment(e) {
+            e.preventDefault();
+            
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scheduling...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Appointment scheduled successfully! We will send you a confirmation email shortly.');
+                e.target.reset();
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, 1500);
+        }
+
+        // Chat Functions
+        function toggleChat() {
+            const widget = document.getElementById('chat-widget');
+            widget.classList.toggle('hidden');
+        }
+
+        function handleChatKeypress(e) {
+            if(e.key === 'Enter') sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if(!message) return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Simulate AI response
+            setTimeout(() => {
+                const response = getAIResponse(message);
+                addMessage(response, 'ai');
+            }, 1000);
+        }
+
+        function quickReply(topic) {
+            const messages = {
+                pricing: 'What are your pricing tiers?',
+                turnaround: 'What is your typical turnaround time?',
+                shipping: 'Do you offer shipping?'
+            };
+            
+            document.getElementById('chat-input').value = messages[topic];
+            sendMessage();
+        }
+
+        function addMessage(text, sender) {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.className = 'chat-message flex items-start space-x-2 ' + (sender === 'user' ? 'flex-row-reverse space-x-reverse' : '');
+            
+            if(sender === 'user') {
+                div.innerHTML = `
+                    <div class="w-8 h-8 bg-brand-cyan rounded-full flex items-center justify-center text-white text-xs flex-shrink-0">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="bg-brand-purple text-white p-3 rounded-2xl rounded-tr-none shadow-sm max-w-[80%]">
+                        <p class="text-sm">${text}</p>
+                    </div>
+                `; 
+            } else {
+                div.innerHTML = `
+                    <div class="w-8 h-8 bg-brand-purple rounded-full flex items-center justify-center text-white text-xs flex-shrink-0">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[80%]">
+                        <p class="text-sm">${text}</p>
+                    </div>
+                `;
+            }
+            
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function getAIResponse(input) {
+            const lower = input.toLowerCase();
+            
+            if(lower.includes('price') || lower.includes('cost') || lower.includes('pricing')) {
+                return 'Our pricing varies by product and specifications. T-shirts start at $12.99, mugs at $8.99, and business cards at $19.99 per 100. Premium paper weights and special materials may add to the cost. Would you like a specific quote?';
+            }
+            else if(lower.includes('time') || lower.includes('turnaround') || lower.includes('delivery')) {
+                return 'Standard turnaround is 3-5 business days. Rush orders available for 24-48 hour delivery at an additional 25% fee. Shipping time depends on your location.';
+            }
+            else if(lower.includes('ship') || lower.includes('delivery')) {
+                return 'Yes, we ship nationwide! Free shipping on orders over $100. Standard shipping takes 2-3 business days, express available for next-day delivery.';
+            }
+            else if(lower.includes('material') || lower.includes('paper')) {
+                return 'We offer Glossy, Matt, Writable, Seed Paper (plantable!), and Recycled Natural White materials. For paper products, weights range from 90gsm (budget) to 400gsm (premium plus).';
+            }
+            else if(lower.includes('hello') || lower.includes('hi')) {
+                return 'Hello! How can I assist you with your printing project today?';
+            }
+            else {
+                return 'I\'d be happy to help with that. For detailed assistance, would you like to schedule a consultation with one of our experts? Click "Book Now" in the menu!';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('home');
+        });
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            if(event.target === document.getElementById('customizer-modal')) {
+                closeCustomizer();
+            }
+            if(event.target === document.getElementById('checkout-modal')) {
+                closeCheckout();
+            }
+            if(event.target === document.getElementById('lightbox')) {
+                closeLightbox();
+            }
+        }
+    </script>
+</body>
+</html>
