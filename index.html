@@ -576,45 +576,45 @@
                             <div>
                                 <label class="block text-sm font-semibold mb-3">Material Type</label>
                                 <div class="grid grid-cols-2 gap-3">
-                                    <button onclick="selectMaterial('glossy')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors" data-material="glossy">
-                                        <div class="font-semibold">Glossy</div>
-                                        <div class="text-sm text-gray-600">Vibrant colors</div>
+                                    <button onclick="selectColor('blue')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors" data-material="blue">
+                                        <div class="font-semibold">Blue</div>
+                                        <div class="text-sm text-gray-600">100% Quality</div>
                                     </button>
-                                    <button onclick="selectMaterial('matt')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors" data-material="matt">
-                                        <div class="font-semibold">Matt</div>
-                                        <div class="text-sm text-gray-600">Non-reflective</div>
+                                    <button onclick="selectColor('white')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors" data-material="white">
+                                        <div class="font-semibold">White</div>
+                                        <div class="text-sm text-gray-600">100% Quality</div>
                                     </button>
-                                    <button onclick="selectMaterial('writable')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors" data-material="writable">
-                                        <div class="font-semibold">Writable</div>
-                                        <div class="text-sm text-gray-600">Writeable surface</div>
+                                    <button onclick="selectColor('black')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors" data-material="black">
+                                        <div class="font-semibold">Blacke</div>
+                                        <div class="text-sm text-gray-600">100% Quality</div>
                                     </button>
-                                    <button onclick="selectMaterial('seed')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors" data-material="seed">
-                                        <div class="font-semibold">Seed Paper</div>
-                                        <div class="text-sm text-gray-600">Plantable eco</div>
+                                    <button onclick="selectColor('yellow')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors" data-material="yellow">
+                                        <div class="font-semibold">Yellow</div>
+                                        <div class="text-sm text-gray-600">100% Qualityo</div>
                                     </button>
-                                    <button onclick="selectMaterial('recycled')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors col-span-2" data-material="recycled">
-                                        <div class="font-semibold">Recycled Natural White</div>
-                                        <div class="text-sm text-gray-600">100% post-consumer waste</div>
+                                    <button onclick="selectColor('garnet')" class="material-btn p-3 border-2 border-gray-200 rounded-lg text-left hover:border-brand-purple transition-colors col-span-2" data-material="garnet">
+                                        <div class="font-semibold">Garnet</div>
+                                        <div class="text-sm text-gray-600">100% Quality</div>
                                     </button>
                                 </div>
                             </div>
 
                             <!-- Paper Weight -->
                             <div>
-                                <label class="block text-sm font-semibold mb-3">Paper Weight / Quality</label>
+                                <label class="block text-sm font-semibold mb-3">Sizes / Quality</label>
                                 <div class="space-y-2">
-                                    <button onclick="selectWeight('90', 0)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="90">
+                                    <button onclick="('90', 0)" class="size-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="90">
                                         <div class="flex items-center">
                                             <div class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 weight-indicator"></div>
                                             <div class="text-left">
-                                                <div class="font-semibold">Super Budget</div>
-                                                <div class="text-sm text-gray-600">90 gsm</div>
+                                                <div class="font-semibold">White</div>
+                                                <div class="text-sm text-gray-600">S</div>
                                             </div>
                                         </div>
-                                        <span class="text-green-600 font-semibold">Base price</span>
+                                        <span class="text-green-600 font-semibold">200 kr</span>
                                     </button>
                                     
-                                    <button onclick="selectWeight('135', 5)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="135">
+                                    <button onclick="selectSize('135', 5)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="135">
                                         <div class="flex items-center">
                                             <div class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 weight-indicator"></div>
                                             <div class="text-left">
@@ -625,7 +625,7 @@
                                         <span class="text-brand-purple font-semibold">+$5.00</span>
                                     </button>
                                     
-                                    <button onclick="selectWeight('170', 12)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="170">
+                                    <button onclick="selectSize('170', 12)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="170">
                                         <div class="flex items-center">
                                             <div class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 weight-indicator"></div>
                                             <div class="text-left">
@@ -636,7 +636,7 @@
                                         <span class="text-brand-purple font-semibold">+$12.00</span>
                                     </button>
                                     
-                                    <button onclick="selectWeight('250', 25)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="250">
+                                    <button onclick="selectSize('250', 25)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="250">
                                         <div class="flex items-center">
                                             <div class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 weight-indicator"></div>
                                             <div class="text-left">
@@ -647,7 +647,7 @@
                                         <span class="text-brand-purple font-semibold">+$25.00</span>
                                     </button>
                                     
-                                    <button onclick="selectWeight('400', 45)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="400">
+                                    <button onclick="selectSize('400', 45)" class="weight-btn w-full p-3 border-2 border-gray-200 rounded-lg flex justify-between items-center hover:border-brand-purple transition-colors" data-weight="400">
                                         <div class="flex items-center">
                                             <div class="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 weight-indicator"></div>
                                             <div class="text-left">
@@ -1528,4 +1528,5 @@
 </body>
 
 </html>
+
 
